@@ -10,7 +10,7 @@ namespace HtmlParsing
     class Program
 
     {
-        static String Load_html(String path)
+        private static string loadHtml(string path)
         {
             WebClient client = new WebClient(); // 웹 클라이언트 객체 생성
             string code = client.DownloadString(path); // 주소를 전달하여 내장된 메소드로 문자열 추출
@@ -18,7 +18,7 @@ namespace HtmlParsing
             return code;
         }
 
-        static void extract_element(String htmlCode)
+        private static void extractElement(string htmlCode)
         {
             HtmlAgilityPack.HtmlDocument mydoc = new HtmlAgilityPack.HtmlDocument();
             mydoc.LoadHtml(htmlCode);
@@ -45,8 +45,8 @@ namespace HtmlParsing
         static void Main(string[] args)
         {
             String path = "http://example.com/";
-            String htmlCode = Load_html(path);
-            extract_element(htmlCode);
+            string htmlCode = loadHtml(path);
+            extractElement(htmlCode);
         }
     }
 }
