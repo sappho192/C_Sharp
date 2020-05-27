@@ -22,7 +22,7 @@ namespace HtmlParsing
         {
             HtmlAgilityPack.HtmlDocument mydoc = new HtmlAgilityPack.HtmlDocument();
             mydoc.LoadHtml(htmlCode);
-            String xpath = "/html[1]/body[1]/div[1]"; // div안에 있는 모든것
+            string xpath = "/html[1]/body[1]/div[1]"; // div안에 있는 모든것
             HtmlAgilityPack.HtmlNodeCollection nodes = mydoc.DocumentNode.SelectNodes(xpath);
 
 
@@ -31,8 +31,8 @@ namespace HtmlParsing
                 div 태그로 묶여있는 것을 nodes로 뽑아내고 여러개일 경우 그 요소들에서 해당경로를
                 SelectSingNode를 이용하여 경로에대한 node 생성수 Innertext를 이용하여 문자열을 추출한다.
                 */
-                String title = node.SelectSingleNode("/html[1]/body[1]/div[1]/h1[1]").InnerHtml;
-                String text = node.SelectSingleNode("/html[1]/body[1]/div[1]/p[1]").InnerHtml;
+                string title = node.SelectSingleNode("/html[1]/body[1]/div[1]/h1[1]").InnerHtml;
+                string text = node.SelectSingleNode("/html[1]/body[1]/div[1]/p[1]").InnerHtml;
 
                 Console.WriteLine("제목 추출");
                 Console.WriteLine(title);
@@ -44,7 +44,7 @@ namespace HtmlParsing
         }
         static void Main(string[] args)
         {
-            String path = "http://example.com/";
+            string path = "http://example.com/";
             string htmlCode = loadHtml(path);
             extractElement(htmlCode);
         }
