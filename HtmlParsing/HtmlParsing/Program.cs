@@ -21,12 +21,11 @@ namespace HtmlParsing
         }
 
         private static void extractElement
-            (string htmlCode, string rootXPath, List<string> targetXPathList)
+            (string htmlCode, string rootXPath, Dictionary<string, string> targetXPathList)
         {
             HtmlAgilityPack.HtmlDocument mydoc = new HtmlAgilityPack.HtmlDocument();
             mydoc.LoadHtml(htmlCode);
             // div 안에 있는 모든것
-            //var nodes = mydoc.DocumentNode.SelectNodes(rootXPath);
             var rootNode = mydoc.DocumentNode.SelectSingleNode(rootXPath);
 
             foreach (var targetXPath in targetXPathList)
@@ -35,14 +34,8 @@ namespace HtmlParsing
                 여러개일 경우 그 요소들에서 해당경로를 SelectSingNode를 이용하여
                 경로에대한 node 생성수 Innertext를 이용하여 문자열을 추출한다.
                 */
-                string content = rootNode.SelectSingleNode(targetXPath).InnerHtml;
-                Console.WriteLine(content);
-
-                //Console.WriteLine("제목 추출");
-                //Console.WriteLine(title);
-                //Console.WriteLine("텍스트 추출");
-                //Console.WriteLine(text);
-
+                string content = rootNode.SelectSingleNode(targetXPath.Value).InnerHtml;
+                Console.WriteLine($"[{targetXPath.Key} 추출]\n{content}");
             }
 
         }
@@ -51,9 +44,9 @@ namespace HtmlParsing
             string path = @"http://example.com/";
 
             string rootXPath = @"/html[1]/body[1]/div[1]";
-            var targetPathList = new List<string>();
-            targetPathList.Add(@"/html[1]/body[1]/div[1]/h1[1]");
-            targetPathList.Add(@"/html[1]/body[1]/div[1]/p[1]");
+            var targetPathList = new Dictionary<string, string>();
+            targetPathList.Add(@"제목", @"/html[1]/body[1]/div[1]/h1[1]");
+            targetPathList.Add(@"내용", @"/html[1]/body[1]/div[1]/p[1]");
 
             string htmlCode = loadHtml(path);
             extractElement(htmlCode, rootXPath, targetPathList);
